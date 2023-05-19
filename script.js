@@ -29,3 +29,27 @@ document.addEventListener('keydown', function (e) {
     closeModal();
   }
 });
+
+// ////////////////////////////////////////////////////////
+const header = document.querySelector('.header');
+console.log(header);
+
+const message = document.createElement('div');
+message.classList.add('cookie-message');
+message.innerHTML =
+  "we use cookies for improved functionality and analytics. <button class='btn btn--close--cookie'>Got it</button>";
+header.append(message);
+// header.append(message);
+document
+  .querySelector('.btn--close--cookie')
+  .addEventListener('click', function () {
+    message.remove();
+  });
+
+message.style.backgroundColor = '#3333';
+message.style.width = '120%';
+
+document.documentElement.style.setProperty('--color-primary', 'orangered');
+
+const logo = document.querySelector('.nav__logo');
+console.log(logo.alt);
