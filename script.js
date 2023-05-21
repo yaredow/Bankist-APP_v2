@@ -54,9 +54,42 @@ document.querySelectorAll('.nav__links').forEach(function(el) {
   })
 })
 
+// tabbed components 
+
+const tabs = document.querySelectorAll('.operations__tab')
+const tabsContainer = document.querySelector('.operations__tab-container');
+const tabsContent = document.querySelectorAll('.operations_content')
+
+tabsContainer.addEventListener('click', function(e) {
+  e.preventDefault(); 
+  const btnClick = e.target.closest('.operations__tab');
+
+  if(!btnClick) return;
+
+  btnClick.classList.add('operations__tab--active')
+
+})
+
+
+
+
 // ////////////////////////////////////////////////////////////////
-// 
-const h1 = document.querySelector('h1')
-console.log(h1.querySelectorAll('.highlight'));  
-console.log(h1.childNodes);
-h1.firstElementChild.style.color = 'white'
+// // going downward through the dome: child
+// const h1 = document.querySelector('h1')
+// // console.log(h1.querySelectorAll('.highlight'));  
+// // console.log(h1.children);
+// h1.firstElementChild.style.color = 'purple';
+// h1.lastElementChild.style.color = 'red'
+// // going upward the dome: parent
+// // console.log(h1.parentNode);
+
+// h1.closest('.header').style.background = 'var(--gradient-secondary)'
+// // going sideways in the dom
+
+// console.log(h1.nextElementSibling);
+// console.log(h1.previousElementSibling);
+// [...h1.parentElement.children].forEach(function (el) {
+//   if(el !== h1) {
+//     el.style.transform = 'scale(0.5)'
+//   }
+// })
