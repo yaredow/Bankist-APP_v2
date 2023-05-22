@@ -1,5 +1,10 @@
 'use strict';
 
+const tabs = document.querySelectorAll('.operations__tab');
+const tabsContainer = document.querySelector('.operations__tab-container');
+const tabsContent = document.querySelectorAll('.operations__content');
+const nav = document.querySelector('.nav');
+
 const btnScrollTo = document.querySelector('.btn--scroll-to');
 const section1 = document.querySelector('#section--1');
 const modal = document.querySelector('.modal');
@@ -39,57 +44,56 @@ btnScrollTo.addEventListener('click', function (e) {
   section1.scrollIntoView({ behavior: 'smooth' });
 });
 
-
 // Navigation links scrolling
 
-document.querySelectorAll('.nav__links').forEach(function(el) {
-  el.addEventListener('click', function(e) {
-    e.preventDefault()
+document.querySelectorAll('.nav__links').forEach(function (el) {
+  el.addEventListener('click', function (e) {
+    e.preventDefault();
 
-    if(e.target.classList.contains('nav__link')) {
-      const id = e.target.getAttribute('href');  
-      document.querySelector(id).scrollIntoView({behavior: 'smooth'})
-
+    if (e.target.classList.contains('nav__link')) {
+      const id = e.target.getAttribute('href');
+      document.querySelector(id).scrollIntoView({ behavior: 'smooth' });
     }
-  })
-})
+  });
+});
 
-// tabbed components 
+// tabbed components
 
-const tabs = document.querySelectorAll('.operations__tab')
-const tabsContainer = document.querySelector('.operations__tab-container');
-const tabsContent = document.querySelectorAll('.operations_content')
-
-tabsContainer.addEventListener('click', function(e) {
-  e.preventDefault(); 
+tabsContainer.addEventListener('click', function (e) {
+  e.preventDefault();
   const btnClick = e.target.closest('.operations__tab');
 
-  if(!btnClick) return;
+  if (!btnClick) return;
 
-  btnClick.classList.add('operations__tab--active')
+  // Removing active tabs
+  tabs.forEach((t) => t.classList.remove('operations__tab--active'));
+  tabsContent.forEach((c) => c.classList.remove('operations__content--active'));
 
-})
+  // Active tab
+  btnClick.classList.add('operations__tab--active');
+  // Display the content of the tabs
+  document
+    .querySelector(`.operations__content--${btnClick.dataset.tab}`)
+    .classList.add('operations__content--active');
+});
 
+// Menu fade animation
+const handleHover = function (e, opacity) {
+  if (e.target.classList.contains('nav__link')) {
+    const link = e.target;
+    const siblings = link.closest('.nav').querySelectorAll('.nav__link');
+    const logo = nav.closest('.nav').querySelector('img');
+    siblings.forEach(function (el) {
+      if (el !== link) el.style.opacity = opacity;
+    });
+    logo.style.opacity = opacity;
+  }
+};
 
+nav.addEventListener('mouseover', function (e) {
+  handleHover(e, 0.5);
+});
 
-
-// ////////////////////////////////////////////////////////////////
-// // going downward through the dome: child
-// const h1 = document.querySelector('h1')
-// // console.log(h1.querySelectorAll('.highlight'));  
-// // console.log(h1.children);
-// h1.firstElementChild.style.color = 'purple';
-// h1.lastElementChild.style.color = 'red'
-// // going upward the dome: parent
-// // console.log(h1.parentNode);
-
-// h1.closest('.header').style.background = 'var(--gradient-secondary)'
-// // going sideways in the dom
-
-// console.log(h1.nextElementSibling);
-// console.log(h1.previousElementSibling);
-// [...h1.parentElement.children].forEach(function (el) {
-//   if(el !== h1) {
-//     el.style.transform = 'scale(0.5)'
-//   }
-// })
+nav.addEventListener('mouseout', function (e) {
+  handleHover(e, 1);
+});
